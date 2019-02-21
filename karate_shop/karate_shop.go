@@ -6,10 +6,10 @@ import (
 )
 
 func main() {
-	fmt.Println(binarySearch([]int{9, 6, 3, 5, 7, 1, 2, 4, 10}))
+	fmt.Println(chop(5, []int{9, 6, 3, 5, 7, 1, 2, 4, 10}))
 }
 
-func binarySearch(collection []int) int {
+func chop(target int, collection []int) int {
 	sort.Ints(collection)
 	lowerbound := 1
 	upperbound := len(collection)
@@ -21,6 +21,10 @@ func binarySearch(collection []int) int {
 		}
 
 		midValue := getMidValue(lowerbound, upperbound)
+
+		if collection[midValue] < target {
+			upperbound = midValue - 1
+		}
 
 	}
 	return collection
