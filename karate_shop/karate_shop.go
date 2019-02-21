@@ -13,8 +13,9 @@ func chop(target int, collection []int) int {
 	sort.Ints(collection)
 	lowerbound := 1
 	upperbound := len(collection)
+	midValue := getMidValue(lowerbound, upperbound)
 
-	for index, value := range collection {
+	for collection[midValue] != target {
 
 		if upperbound < lowerbound {
 			return -1
@@ -23,13 +24,21 @@ func chop(target int, collection []int) int {
 		midValue := getMidValue(lowerbound, upperbound)
 
 		if collection[midValue] < target {
+			lowerbound = midValue + 1
+		}
+
+		if collection[midValue] > target {
 			upperbound = midValue - 1
 		}
 
+		if collection[midValue] == target {
+			return midValue
+		}
 	}
-	return collection
+
+	return -1
 }
 
 func getMidValue(lowerbound int, upperbound int) int {
-	return lowerbound + (upperbound-lowerbound)/2
+	return lowerbound + ((upperbound - lowerbound) / 2)
 }
